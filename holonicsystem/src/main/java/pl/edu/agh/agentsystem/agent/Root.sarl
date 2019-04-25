@@ -1,0 +1,34 @@
+package pl.edu.agh.agentsystem.^agent
+
+import io.sarl.core.Initialize
+import io.sarl.core.Logging
+import java.util.HashMap
+import io.sarl.core.Behaviors
+import io.sarl.core.Lifecycle
+import io.sarl.core.InnerContextAccess
+import pl.edu.agh.agentsystem.^event.ProductParameters
+import pl.edu.agh.agentsystem.utils.ChemicalElement
+import pl.edu.agh.agentsystem.^agent.ProductSupervisor
+
+agent Root {
+	uses Logging, Behaviors, Lifecycle, InnerContextAccess
+	on Initialize {
+		info("Create agent Supervisor")
+		val totalWeight = 50.5f
+		val refinementLevel = 2
+		val compositionOfTheProduct = new HashMap<ChemicalElement, Float>()
+		compositionOfTheProduct.put(ChemicalElement.TIN, 2f)
+		compositionOfTheProduct.put(ChemicalElement.LEAD, 3.2f)
+		compositionOfTheProduct.put(ChemicalElement.PHOSPHORUS, 0.2f)
+		val maxPollution = 1
+		
+		val request = new ProductParameters(totalWeight, 
+			refinementLevel,
+			compositionOfTheProduct,
+			maxPollution)
+
+		info("Sending request")
+		spawnInContext(typeof(ProductSupervisor), getInnerContext)
+		wake(request)
+	}
+}

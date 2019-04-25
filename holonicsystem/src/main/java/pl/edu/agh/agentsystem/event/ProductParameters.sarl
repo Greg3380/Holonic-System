@@ -1,0 +1,26 @@
+/** 
+ * 
+ */
+package pl.edu.agh.agentsystem.^event
+
+import java.util.Map
+import pl.edu.agh.agentsystem.utils.ChemicalElement
+
+event ProductParameters {
+	val totalWeight : float
+	val refinementLevel : int
+	val compositionOfTheProduct : Map<ChemicalElement, Float>
+	val maxPollution : float
+
+	new(
+		totalWeight : float,
+		refinementLevel : int,
+		compositionOfTheProduct : Map<ChemicalElement, Float>,
+		maxPollution : float
+	) {
+		this.totalWeight = totalWeight
+		this.refinementLevel = refinementLevel
+		this.compositionOfTheProduct = compositionOfTheProduct
+		this.maxPollution = maxPollution
+	}
+}

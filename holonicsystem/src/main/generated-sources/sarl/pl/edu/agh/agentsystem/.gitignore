@@ -3,3 +3,10 @@
 /.myproject.sarlbin
 /MyAgent.java
 /MyEvent.java
+/.CooperationRequest.java._trace
+/.Supervisor.java._trace
+/.ProductSupervisor.java._trace
+/.ChemicalElements.java._trace
+/.ChemicalElement.java._trace
+/.ProductParameters.java._trace
+/.Root.java._trace
