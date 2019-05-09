@@ -1,6 +1,3 @@
-/** 
- * 
- */
 package pl.edu.agh.agentsystem.^event
 
 import java.util.Map
@@ -11,16 +8,19 @@ event ProductParameters {
 	val refinementLevel : int
 	val compositionOfTheProduct : Map<ChemicalElement, Float>
 	val maxPollution : float
+	val cost: int
 
 	new(
 		totalWeight : float,
 		refinementLevel : int,
 		compositionOfTheProduct : Map<ChemicalElement, Float>,
-		maxPollution : float
+		maxPollution : float,
+		cost : int
 	) {
 		this.totalWeight = totalWeight
 		this.refinementLevel = refinementLevel
 		this.compositionOfTheProduct = compositionOfTheProduct
 		this.maxPollution = maxPollution
+		this.cost = cost
 	}
 }

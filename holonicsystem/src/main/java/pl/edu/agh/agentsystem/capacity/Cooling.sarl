@@ -1,0 +1,13 @@
+
+package pl.edu.agh.agentsystem.^capacity
+
+import pl.edu.agh.agentsystem.^event.ExchangeParameters
+
+capacity Cooling {
+
+	def coolWithAir(exchangeParameters : ExchangeParameters) : ExchangeParameters
+
+	def coolWithWater(exchangeParameters : ExchangeParameters) : ExchangeParameters
+
+	def coolWithOil(exchangeParameters : ExchangeParameters) : ExchangeParameters
+}

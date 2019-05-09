@@ -1,0 +1,14 @@
+/** 
+ * 
+ */
+package pl.edu.agh.agentsystem.^event
+
+
+event CoolWithWater {
+
+	val exchangeParameters : ExchangeParameters
+
+	new (exchangeParameters : ExchangeParameters) {
+		this.exchangeParameters = exchangeParameters
+	}
+}

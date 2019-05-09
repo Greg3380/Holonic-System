@@ -1,0 +1,44 @@
+package pl.edu.agh.agentsystem.^agent.jobholon
+
+import io.sarl.core.Destroy
+import io.sarl.core.Initialize
+import io.sarl.core.Logging
+import pl.edu.agh.agentsystem.^event.CoolWithOpenAir
+import pl.edu.agh.agentsystem.^capacity.Cooling
+import pl.edu.agh.agentsystem.^skill.CoolingSkill
+import pl.edu.agh.agentsystem.^event.CoolWithWater
+import pl.edu.agh.agentsystem.^event.CoolWithOil
+
+agent CoolingAgent {
+	uses Logging
+
+	on Initialize {
+		info("The cooling agent was started.")
+		var skill1 = new CoolingSkill
+		setSkill(skill1)
+	}
+
+	on Destroy {
+		// Event trigger when the agent is destroyed from the system.
+		// You should put all the resource releasing statements in this block of code.
+		info("The cooling agent was stopped.")
+	}
+
+	on CoolWithOpenAir {
+		var s = getSkill(Cooling)
+		s.coolWithAir(occurrence.exchangeParameters)
+	}
+
+	on CoolWithWater {
+		var s = getSkill(Cooling)
+		s.coolWithAir(occurrence.exchangeParameters)
+	}
+
+	on CoolWithOil {
+		var s = getSkill(Cooling)
+		s.coolWithAir(occurrence.exchangeParameters)
+	}
+
+}
+	
+	

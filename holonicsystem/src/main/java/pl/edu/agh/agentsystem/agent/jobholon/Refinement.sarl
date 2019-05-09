@@ -1,0 +1,28 @@
+package pl.edu.agh.agentsystem.^agent.jobholon
+
+import io.sarl.core.Destroy
+import io.sarl.core.Initialize
+import io.sarl.core.Logging
+import pl.edu.agh.agentsystem.^event.ExchangeParameters
+import pl.edu.agh.agentsystem.utils.AgentType
+import pl.edu.agh.agentsystem.^behavior.RefinementBehavior
+import io.sarl.core.Behaviors
+
+agent Refinement {
+	uses Logging, Behaviors
+
+	on Initialize {
+
+		info("The agent was started.")
+		var beh = new RefinementBehavior(this)
+		registerBehavior(beh)
+	}
+
+	on Destroy {
+		info("The agent was stopped.")
+	}
+
+	on ExchangeParameters [occurrence.nextAgent == AgentType.REFINEMENT] {
+
+	}
+}

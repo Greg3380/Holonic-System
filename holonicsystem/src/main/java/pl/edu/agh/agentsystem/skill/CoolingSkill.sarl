@@ -1,0 +1,54 @@
+package pl.edu.agh.agentsystem.^skill
+
+import io.sarl.core.Logging
+import pl.edu.agh.agentsystem.^capacity.Cooling
+import pl.edu.agh.agentsystem.^event.ExchangeParameters
+import pl.edu.agh.agentsystem.utils.ChemicalElement
+
+skill CoolingSkill implements Cooling {
+	uses Logging
+
+	def install {
+		// Function invoked when the skill is installed in the owner.
+		// You should put all the initialization statements in this block of code.
+		info("Installing the skill")
+	}
+
+	def uninstall {
+		info("Uninstalling the skill")
+	}
+
+	
+	
+	def coolWithAir(exchangeParameters : ExchangeParameters) : ExchangeParameters {
+		var alloyStrength= ((1 - exchangeParameters.productParameters.maxPollution) * 500)
+		var alloyExtensibility = (exchangeParameters.productParameters.compositionOfTheProduct.get(ChemicalElement.COPPER) * 3f) * 100
+		var temperature = 20
+		var time = exchangeParameters.time + 3
+		var nextAgent = exchangeParameters.nextAgent
+		return new ExchangeParameters(exchangeParameters.productParameters, alloyStrength, alloyExtensibility, temperature, time, nextAgent)
+	}
+	
+	def coolWithWater(exchangeParameters : ExchangeParameters) : ExchangeParameters {
+		var alloyStrength = ((1 - exchangeParameters.productParameters.maxPollution) * 500)
+		var alloyExtensibility = (exchangeParameters.productParameters.compositionOfTheProduct.get(
+			ChemicalElement.COPPER) * 3f) * 100 * 1.1f
+		var temperature = 20
+		var time = exchangeParameters.time + 2
+		var nextAgent = exchangeParameters.nextAgent
+		return new ExchangeParameters(exchangeParameters.productParameters, alloyStrength, alloyExtensibility,
+			temperature, time, nextAgent)
+	}
+	
+	def coolWithOil(exchangeParameters : ExchangeParameters) : ExchangeParameters {
+		var alloyStrength = ((1 - exchangeParameters.productParameters.maxPollution) * 500)
+		var alloyExtensibility = (exchangeParameters.productParameters.compositionOfTheProduct.get(
+			ChemicalElement.COPPER) * 3f) * 100 * 1.15f
+		var temperature = 20
+		var time = exchangeParameters.time + 1
+		var nextAgent = exchangeParameters.nextAgent
+		return new ExchangeParameters(exchangeParameters.productParameters, alloyStrength, alloyExtensibility,
+			temperature, time, nextAgent)
+	}
+	
+}

@@ -1,0 +1,38 @@
+/** 
+ * 
+ */
+package pl.edu.agh.agentsystem.^behavior
+
+import io.sarl.core.Destroy
+import io.sarl.core.Initialize
+import io.sarl.core.Logging
+import pl.edu.agh.agentsystem.^event.ExchangeParameters
+import pl.edu.agh.agentsystem.^event.CoolWithOpenAir
+import io.sarl.core.DefaultContextInteractions
+import pl.edu.agh.agentsystem.^event.CoolWithWater
+import pl.edu.agh.agentsystem.^event.CoolWithOil
+import pl.edu.agh.agentsystem.utils.AgentType
+
+behavior RefinementBehavior {
+	uses Logging, DefaultContextInteractions
+
+	on Initialize {
+		info("The behavior was started.")
+	}
+
+	on Destroy {
+		info("The behavior was stopped.")
+	}
+
+	on ExchangeParameters [occurrence.nextAgent == AgentType.REFINEMENT && occurrence.productParameters.cost < 1000] {
+		emit(new CoolWithOpenAir(occurrence))
+	}
+	
+	on ExchangeParameters [occurrence.nextAgent == AgentType.REFINEMENT && occurrence.productParameters.cost < 3000] {
+		emit(new CoolWithWater(occurrence))
+	}
+
+	on ExchangeParameters [occurrence.nextAgent == AgentType.REFINEMENT && occurrence.productParameters.cost >= 1000] {
+		emit(new CoolWithOil(occurrence))
+	}
+}

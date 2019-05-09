@@ -17,15 +17,17 @@ agent Root {
 		val totalWeight = 50.5f
 		val refinementLevel = 2
 		val compositionOfTheProduct = new HashMap<ChemicalElement, Float>()
-		compositionOfTheProduct.put(ChemicalElement.TIN, 2f)
-		compositionOfTheProduct.put(ChemicalElement.LEAD, 3.2f)
-		compositionOfTheProduct.put(ChemicalElement.PHOSPHORUS, 0.2f)
-		val maxPollution = 1
-		
+		compositionOfTheProduct.put(ChemicalElement.COPPER, 0.835f)
+		compositionOfTheProduct.put(ChemicalElement.TIN, 0.09f)
+		compositionOfTheProduct.put(ChemicalElement.LEAD, 0.045f)
+		compositionOfTheProduct.put(ChemicalElement.PHOSPHORUS, 0.03f)
+		val maxPollution = 0.1f
+		val cost = 3000
 		val request = new ProductParameters(totalWeight, 
 			refinementLevel,
 			compositionOfTheProduct,
-			maxPollution)
+			maxPollution,
+			cost)
 
 		info("Sending request")
 		spawnInContext(typeof(ProductSupervisor), getInnerContext)

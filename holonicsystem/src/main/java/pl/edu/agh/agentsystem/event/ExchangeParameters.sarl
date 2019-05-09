@@ -1,0 +1,31 @@
+package pl.edu.agh.agentsystem.^event
+
+import pl.edu.agh.agentsystem.^event.ProductParameters
+import pl.edu.agh.agentsystem.utils.AgentType
+
+event ExchangeParameters {
+	
+	val productParameters : ProductParameters
+	val alloyStrength : float
+	val alloyExtensibility : float
+	val temperature: int
+	val time : int
+	val nextAgent : AgentType
+
+	new(
+		productParameters : ProductParameters,
+		alloyStrength : float,
+		alloyExtensibility : float,
+		temperature : int,
+		time : int,
+		nextAgent: AgentType
+		
+	) {
+		this.productParameters = productParameters
+		this.alloyStrength = alloyStrength
+		this.alloyExtensibility = alloyExtensibility
+		this.temperature = temperature
+		this.time = time
+		this.nextAgent = nextAgent
+	}
+}

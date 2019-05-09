@@ -1,14 +1,11 @@
 package pl.edu.agh.agentsystem.agent;
 
-import io.sarl.core.AgentKilled;
-import io.sarl.core.AgentSpawned;
-import io.sarl.core.ContextJoined;
-import io.sarl.core.ContextLeft;
+import io.sarl.core.Behaviors;
 import io.sarl.core.Destroy;
 import io.sarl.core.Initialize;
+import io.sarl.core.InnerContextAccess;
+import io.sarl.core.Lifecycle;
 import io.sarl.core.Logging;
-import io.sarl.core.MemberJoined;
-import io.sarl.core.MemberLeft;
 import io.sarl.lang.annotation.ImportedCapacityFeature;
 import io.sarl.lang.annotation.PerceptGuardEvaluator;
 import io.sarl.lang.annotation.SarlElementType;
@@ -25,7 +22,11 @@ import javax.inject.Inject;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Inline;
 import org.eclipse.xtext.xbase.lib.Pure;
+import pl.edu.agh.agentsystem.agent.jobholon.CoolingAgent;
+import pl.edu.agh.agentsystem.agent.jobholon.Refinement;
+import pl.edu.agh.agentsystem.event.ExchangeParameters;
 import pl.edu.agh.agentsystem.event.ProductParameters;
+import pl.edu.agh.agentsystem.utils.AgentType;
 
 @SarlSpecification("0.8")
 @SarlElementType(18)
@@ -39,6 +40,22 @@ public class ProductSupervisor extends Agent {
   private void $behaviorUnit$ProductParameters$1(final ProductParameters occurrence) {
     Logging _$CAPACITY_USE$IO_SARL_CORE_LOGGING$CALLER = this.$castSkill(Logging.class, (this.$CAPACITY_USE$IO_SARL_CORE_LOGGING == null || this.$CAPACITY_USE$IO_SARL_CORE_LOGGING.get() == null) ? (this.$CAPACITY_USE$IO_SARL_CORE_LOGGING = this.$getSkill(Logging.class)) : this.$CAPACITY_USE$IO_SARL_CORE_LOGGING);
     _$CAPACITY_USE$IO_SARL_CORE_LOGGING$CALLER.info("Received production parameters.");
+    ProductParameters params = occurrence;
+    this.establishCooperation(params);
+    ExchangeParameters exchangeParams = this.prepareExchangeParams(occurrence);
+    Lifecycle _$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE$CALLER = this.$castSkill(Lifecycle.class, (this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE == null || this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE.get() == null) ? (this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE = this.$getSkill(Lifecycle.class)) : this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE);
+    InnerContextAccess _$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS$CALLER = this.$castSkill(InnerContextAccess.class, (this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS == null || this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS.get() == null) ? (this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS = this.$getSkill(InnerContextAccess.class)) : this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS);
+    _$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE$CALLER.spawnInContext(Refinement.class, _$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS$CALLER.getInnerContext());
+    Lifecycle _$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE$CALLER_1 = this.$castSkill(Lifecycle.class, (this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE == null || this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE.get() == null) ? (this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE = this.$getSkill(Lifecycle.class)) : this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE);
+    InnerContextAccess _$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS$CALLER_1 = this.$castSkill(InnerContextAccess.class, (this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS == null || this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS.get() == null) ? (this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS = this.$getSkill(InnerContextAccess.class)) : this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS);
+    _$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE$CALLER_1.spawnInContext(CoolingAgent.class, _$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS$CALLER_1.getInnerContext());
+    Behaviors _$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS$CALLER = this.$castSkill(Behaviors.class, (this.$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS == null || this.$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS.get() == null) ? (this.$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS = this.$getSkill(Behaviors.class)) : this.$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS);
+    _$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS$CALLER.wake(exchangeParams);
+  }
+  
+  @Pure
+  protected ExchangeParameters prepareExchangeParams(final ProductParameters parameters) {
+    return new ExchangeParameters(parameters, 0, 0, 0, 0, AgentType.REFINEMENT);
   }
   
   private void $behaviorUnit$Destroy$2(final Destroy occurrence) {
@@ -46,22 +63,8 @@ public class ProductSupervisor extends Agent {
     _$CAPACITY_USE$IO_SARL_CORE_LOGGING$CALLER.info("The agent was stopped.");
   }
   
-  private void $behaviorUnit$AgentSpawned$3(final AgentSpawned occurrence) {
-  }
-  
-  private void $behaviorUnit$AgentKilled$4(final AgentKilled occurrence) {
-  }
-  
-  private void $behaviorUnit$ContextJoined$5(final ContextJoined occurrence) {
-  }
-  
-  private void $behaviorUnit$ContextLeft$6(final ContextLeft occurrence) {
-  }
-  
-  private void $behaviorUnit$MemberJoined$7(final MemberJoined occurrence) {
-  }
-  
-  private void $behaviorUnit$MemberLeft$8(final MemberLeft occurrence) {
+  @Pure
+  protected void establishCooperation(final ProductParameters params) {
   }
   
   @Extension
@@ -79,44 +82,57 @@ public class ProductSupervisor extends Agent {
     return $castSkill(Logging.class, this.$CAPACITY_USE$IO_SARL_CORE_LOGGING);
   }
   
+  @Extension
+  @ImportedCapacityFeature(Behaviors.class)
+  @SyntheticMember
+  private transient ClearableReference<Skill> $CAPACITY_USE$IO_SARL_CORE_BEHAVIORS;
+  
+  @SyntheticMember
+  @Pure
+  @Inline(value = "$castSkill(Behaviors.class, ($0$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS == null || $0$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS.get() == null) ? ($0$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS = $0$getSkill(Behaviors.class)) : $0$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS)", imported = Behaviors.class)
+  private Behaviors $CAPACITY_USE$IO_SARL_CORE_BEHAVIORS$CALLER() {
+    if (this.$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS == null || this.$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS.get() == null) {
+      this.$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS = $getSkill(Behaviors.class);
+    }
+    return $castSkill(Behaviors.class, this.$CAPACITY_USE$IO_SARL_CORE_BEHAVIORS);
+  }
+  
+  @Extension
+  @ImportedCapacityFeature(Lifecycle.class)
+  @SyntheticMember
+  private transient ClearableReference<Skill> $CAPACITY_USE$IO_SARL_CORE_LIFECYCLE;
+  
+  @SyntheticMember
+  @Pure
+  @Inline(value = "$castSkill(Lifecycle.class, ($0$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE == null || $0$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE.get() == null) ? ($0$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE = $0$getSkill(Lifecycle.class)) : $0$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE)", imported = Lifecycle.class)
+  private Lifecycle $CAPACITY_USE$IO_SARL_CORE_LIFECYCLE$CALLER() {
+    if (this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE == null || this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE.get() == null) {
+      this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE = $getSkill(Lifecycle.class);
+    }
+    return $castSkill(Lifecycle.class, this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE);
+  }
+  
+  @Extension
+  @ImportedCapacityFeature(InnerContextAccess.class)
+  @SyntheticMember
+  private transient ClearableReference<Skill> $CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS;
+  
+  @SyntheticMember
+  @Pure
+  @Inline(value = "$castSkill(InnerContextAccess.class, ($0$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS == null || $0$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS.get() == null) ? ($0$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS = $0$getSkill(InnerContextAccess.class)) : $0$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS)", imported = InnerContextAccess.class)
+  private InnerContextAccess $CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS$CALLER() {
+    if (this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS == null || this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS.get() == null) {
+      this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS = $getSkill(InnerContextAccess.class);
+    }
+    return $castSkill(InnerContextAccess.class, this.$CAPACITY_USE$IO_SARL_CORE_INNERCONTEXTACCESS);
+  }
+  
   @SyntheticMember
   @PerceptGuardEvaluator
   private void $guardEvaluator$Initialize(final Initialize occurrence, final Collection<Runnable> ___SARLlocal_runnableCollection) {
     assert occurrence != null;
     assert ___SARLlocal_runnableCollection != null;
     ___SARLlocal_runnableCollection.add(() -> $behaviorUnit$Initialize$0(occurrence));
-  }
-  
-  @SyntheticMember
-  @PerceptGuardEvaluator
-  private void $guardEvaluator$ContextLeft(final ContextLeft occurrence, final Collection<Runnable> ___SARLlocal_runnableCollection) {
-    assert occurrence != null;
-    assert ___SARLlocal_runnableCollection != null;
-    ___SARLlocal_runnableCollection.add(() -> $behaviorUnit$ContextLeft$6(occurrence));
-  }
-  
-  @SyntheticMember
-  @PerceptGuardEvaluator
-  private void $guardEvaluator$ContextJoined(final ContextJoined occurrence, final Collection<Runnable> ___SARLlocal_runnableCollection) {
-    assert occurrence != null;
-    assert ___SARLlocal_runnableCollection != null;
-    ___SARLlocal_runnableCollection.add(() -> $behaviorUnit$ContextJoined$5(occurrence));
-  }
-  
-  @SyntheticMember
-  @PerceptGuardEvaluator
-  private void $guardEvaluator$MemberLeft(final MemberLeft occurrence, final Collection<Runnable> ___SARLlocal_runnableCollection) {
-    assert occurrence != null;
-    assert ___SARLlocal_runnableCollection != null;
-    ___SARLlocal_runnableCollection.add(() -> $behaviorUnit$MemberLeft$8(occurrence));
-  }
-  
-  @SyntheticMember
-  @PerceptGuardEvaluator
-  private void $guardEvaluator$AgentSpawned(final AgentSpawned occurrence, final Collection<Runnable> ___SARLlocal_runnableCollection) {
-    assert occurrence != null;
-    assert ___SARLlocal_runnableCollection != null;
-    ___SARLlocal_runnableCollection.add(() -> $behaviorUnit$AgentSpawned$3(occurrence));
   }
   
   @SyntheticMember
@@ -129,26 +145,10 @@ public class ProductSupervisor extends Agent {
   
   @SyntheticMember
   @PerceptGuardEvaluator
-  private void $guardEvaluator$AgentKilled(final AgentKilled occurrence, final Collection<Runnable> ___SARLlocal_runnableCollection) {
-    assert occurrence != null;
-    assert ___SARLlocal_runnableCollection != null;
-    ___SARLlocal_runnableCollection.add(() -> $behaviorUnit$AgentKilled$4(occurrence));
-  }
-  
-  @SyntheticMember
-  @PerceptGuardEvaluator
   private void $guardEvaluator$ProductParameters(final ProductParameters occurrence, final Collection<Runnable> ___SARLlocal_runnableCollection) {
     assert occurrence != null;
     assert ___SARLlocal_runnableCollection != null;
     ___SARLlocal_runnableCollection.add(() -> $behaviorUnit$ProductParameters$1(occurrence));
-  }
-  
-  @SyntheticMember
-  @PerceptGuardEvaluator
-  private void $guardEvaluator$MemberJoined(final MemberJoined occurrence, final Collection<Runnable> ___SARLlocal_runnableCollection) {
-    assert occurrence != null;
-    assert ___SARLlocal_runnableCollection != null;
-    ___SARLlocal_runnableCollection.add(() -> $behaviorUnit$MemberJoined$7(occurrence));
   }
   
   @SyntheticMember

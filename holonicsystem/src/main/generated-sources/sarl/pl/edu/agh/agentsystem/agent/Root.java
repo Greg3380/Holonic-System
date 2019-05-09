@@ -36,11 +36,13 @@ public class Root extends Agent {
     final float totalWeight = 50.5f;
     final int refinementLevel = 2;
     final HashMap<ChemicalElement, Float> compositionOfTheProduct = new HashMap<ChemicalElement, Float>();
-    compositionOfTheProduct.put(ChemicalElement.TIN, Float.valueOf(2f));
-    compositionOfTheProduct.put(ChemicalElement.LEAD, Float.valueOf(3.2f));
-    compositionOfTheProduct.put(ChemicalElement.PHOSPHORUS, Float.valueOf(0.2f));
-    final int maxPollution = 1;
-    final ProductParameters request = new ProductParameters(totalWeight, refinementLevel, compositionOfTheProduct, maxPollution);
+    compositionOfTheProduct.put(ChemicalElement.COPPER, Float.valueOf(0.835f));
+    compositionOfTheProduct.put(ChemicalElement.TIN, Float.valueOf(0.09f));
+    compositionOfTheProduct.put(ChemicalElement.LEAD, Float.valueOf(0.045f));
+    compositionOfTheProduct.put(ChemicalElement.PHOSPHORUS, Float.valueOf(0.03f));
+    final float maxPollution = 0.1f;
+    final int cost = 3000;
+    final ProductParameters request = new ProductParameters(totalWeight, refinementLevel, compositionOfTheProduct, maxPollution, cost);
     Logging _$CAPACITY_USE$IO_SARL_CORE_LOGGING$CALLER_1 = this.$castSkill(Logging.class, (this.$CAPACITY_USE$IO_SARL_CORE_LOGGING == null || this.$CAPACITY_USE$IO_SARL_CORE_LOGGING.get() == null) ? (this.$CAPACITY_USE$IO_SARL_CORE_LOGGING = this.$getSkill(Logging.class)) : this.$CAPACITY_USE$IO_SARL_CORE_LOGGING);
     _$CAPACITY_USE$IO_SARL_CORE_LOGGING$CALLER_1.info("Sending request");
     Lifecycle _$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE$CALLER = this.$castSkill(Lifecycle.class, (this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE == null || this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE.get() == null) ? (this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE = this.$getSkill(Lifecycle.class)) : this.$CAPACITY_USE$IO_SARL_CORE_LIFECYCLE);

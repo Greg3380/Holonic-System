@@ -21,11 +21,14 @@ public class ProductParameters extends Event {
   
   public final float maxPollution;
   
-  public ProductParameters(final float totalWeight, final int refinementLevel, final Map<ChemicalElement, Float> compositionOfTheProduct, final float maxPollution) {
+  public final int cost;
+  
+  public ProductParameters(final float totalWeight, final int refinementLevel, final Map<ChemicalElement, Float> compositionOfTheProduct, final float maxPollution, final int cost) {
     this.totalWeight = totalWeight;
     this.refinementLevel = refinementLevel;
     this.compositionOfTheProduct = compositionOfTheProduct;
     this.maxPollution = maxPollution;
+    this.cost = cost;
   }
   
   @Override
@@ -45,6 +48,8 @@ public class ProductParameters extends Event {
       return false;
     if (Float.floatToIntBits(other.maxPollution) != Float.floatToIntBits(this.maxPollution))
       return false;
+    if (other.cost != this.cost)
+      return false;
     return super.equals(obj);
   }
   
@@ -57,6 +62,7 @@ public class ProductParameters extends Event {
     result = prime * result + Float.floatToIntBits(this.totalWeight);
     result = prime * result + this.refinementLevel;
     result = prime * result + Float.floatToIntBits(this.maxPollution);
+    result = prime * result + this.cost;
     return result;
   }
   
@@ -71,8 +77,9 @@ public class ProductParameters extends Event {
     builder.add("refinementLevel", this.refinementLevel);
     builder.add("compositionOfTheProduct", this.compositionOfTheProduct);
     builder.add("maxPollution", this.maxPollution);
+    builder.add("cost", this.cost);
   }
   
   @SyntheticMember
-  private final static long serialVersionUID = -1024153181L;
+  private final static long serialVersionUID = 1542515906L;
 }
