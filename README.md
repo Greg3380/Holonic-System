@@ -22,4 +22,4 @@ Next step is to import cloned project into Eclipse. To do so, just import projec
 
 ### Create run configuration
 
-Your run configuration should looks like ![this one]. (https://github.com/Greg3380/Holonic-System/blob/master/holonicsystem/run_configuration.png)
+Your run configuration should looks like ![this one] (https://github.com/Greg3380/Holonic-System/blob/master/holonicsystem/run_configuration.png)
