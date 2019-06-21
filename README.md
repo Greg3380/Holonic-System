@@ -23,3 +23,11 @@ Next step is to import cloned project into Eclipse. To do so, just import projec
 ### Create run configuration
 
 Your run configuration should looks like ![this one](https://github.com/Greg3380/Holonic-System/blob/master/holonicsystem/run_configuration.png)
+
+### Setup input parameters
+
+In Root.sarl you are able to specify input parameters, such as: composition of the product, total weight, max pollution level, cost. Based on these parameters output will be calculated.
+
+### Run simulation 
+
+Left click on the green play button on the top of Eclipse window. Simulation should start and output should be displayed on finish. 
