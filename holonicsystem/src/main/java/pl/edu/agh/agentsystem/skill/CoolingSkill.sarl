@@ -4,6 +4,8 @@ import io.sarl.core.Logging
 import pl.edu.agh.agentsystem.^capacity.Cooling
 import pl.edu.agh.agentsystem.^event.ExchangeParameters
 import pl.edu.agh.agentsystem.utils.ChemicalElement
+import pl.edu.agh.agentsystem.^event.AfterCooling
+import pl.edu.agh.agentsystem.^agent.ResourceAgent
 
 skill CoolingSkill implements Cooling {
 	uses Logging
@@ -21,31 +23,49 @@ skill CoolingSkill implements Cooling {
 	
 	
 	def coolWithAir(exchangeParameters : ExchangeParameters) : ExchangeParameters {
-		var alloyStrength= ((1 - exchangeParameters.productParameters.maxPollution) * 500)
-		var alloyExtensibility = (exchangeParameters.productParameters.compositionOfTheProduct.get(ChemicalElement.COPPER) * 3f) * 100
+		var resourceAgent = new ResourceAgent()
+
+		var coolingMachine = resourceAgent.coolingMachineAgent
+		
+		var alloyStrength = (Math.log(exchangeParameters.alloyStrength) as float) * 10 +
+			((1 - exchangeParameters.productParameters.maxPollution) * 10)
+		var alloyExtensibility = exchangeParameters.alloyExtensibility +(
+			exchangeParameters.productParameters.compositionOfTheProduct.get(ChemicalElement.COPPER) * 3f) * 10
 		var temperature = 20
-		var time = exchangeParameters.time + 3
+		var time = exchangeParameters.time + 3 + coolingMachine.coolingTime
 		var nextAgent = exchangeParameters.nextAgent
 		return new ExchangeParameters(exchangeParameters.productParameters, alloyStrength, alloyExtensibility, temperature, time, nextAgent)
 	}
 	
 	def coolWithWater(exchangeParameters : ExchangeParameters) : ExchangeParameters {
-		var alloyStrength = ((1 - exchangeParameters.productParameters.maxPollution) * 500)
-		var alloyExtensibility = (exchangeParameters.productParameters.compositionOfTheProduct.get(
-			ChemicalElement.COPPER) * 3f) * 100 * 1.1f
+		var resourceAgent = new ResourceAgent()
+
+		var coolingMachine = resourceAgent.coolingMachineAgent
+		
+		var alloyStrength = (Math.log(exchangeParameters.alloyStrength) as float) * 10 +
+			((1 - exchangeParameters.productParameters.maxPollution) * 15)
+		var alloyExtensibility = exchangeParameters.alloyExtensibility +
+			(exchangeParameters.productParameters.compositionOfTheProduct.get(
+			ChemicalElement.COPPER) * 3f) * 10 * 1.1f
 		var temperature = 20
-		var time = exchangeParameters.time + 2
+		var time = exchangeParameters.time + 2 + coolingMachine.coolingTime
 		var nextAgent = exchangeParameters.nextAgent
 		return new ExchangeParameters(exchangeParameters.productParameters, alloyStrength, alloyExtensibility,
 			temperature, time, nextAgent)
 	}
 	
 	def coolWithOil(exchangeParameters : ExchangeParameters) : ExchangeParameters {
-		var alloyStrength = ((1 - exchangeParameters.productParameters.maxPollution) * 500)
-		var alloyExtensibility = (exchangeParameters.productParameters.compositionOfTheProduct.get(
-			ChemicalElement.COPPER) * 3f) * 100 * 1.15f
+
+		var resourceAgent = new ResourceAgent()
+
+		var coolingMachine = resourceAgent.coolingMachineAgent
+		var alloyStrength = (Math.log(exchangeParameters.alloyStrength) as float) * 10 +
+			((1 - exchangeParameters.productParameters.maxPollution) * 18)
+		var alloyExtensibility = exchangeParameters.alloyExtensibility +
+			(exchangeParameters.productParameters.compositionOfTheProduct.get(
+			ChemicalElement.COPPER) * 3f) * 10 * 1.15f
 		var temperature = 20
-		var time = exchangeParameters.time + 1
+		var time = exchangeParameters.time + 1 + coolingMachine.coolingTime
 		var nextAgent = exchangeParameters.nextAgent
 		return new ExchangeParameters(exchangeParameters.productParameters, alloyStrength, alloyExtensibility,
 			temperature, time, nextAgent)
