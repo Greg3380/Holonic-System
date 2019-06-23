@@ -7,4 +7,5 @@ public class CoolingMachineAgent implements OperationAgent {
 	public int getCoolingTime() {
 		return this.coolingTime;
 	}
+	
 }

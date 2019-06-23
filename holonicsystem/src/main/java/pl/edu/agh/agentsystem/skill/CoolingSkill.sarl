@@ -39,7 +39,6 @@ skill CoolingSkill implements Cooling {
 	
 	def coolWithWater(exchangeParameters : ExchangeParameters) : ExchangeParameters {
 		var resourceAgent = new ResourceAgent()
-
 		var coolingMachine = resourceAgent.coolingMachineAgent
 		
 		var alloyStrength = (Math.log(exchangeParameters.alloyStrength) as float) * 10 +

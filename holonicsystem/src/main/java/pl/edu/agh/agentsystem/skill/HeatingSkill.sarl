@@ -8,7 +8,7 @@ import java.util.Map
 import pl.edu.agh.agentsystem.utils.ElementToMeltingTemp
 import pl.edu.agh.agentsystem.utils.AgentType
 import pl.edu.agh.agentsystem.^agent.operationholon.FurnanceAgent
-import pl.edu.agh.agentsystem.^agent.ResourceSupervisor
+import pl.edu.agh.agentsystem.^agent.ResourceAgent
 
 skill HeatingSkill implements Heating {
 	uses Logging
@@ -27,11 +27,13 @@ skill HeatingSkill implements Heating {
 	
 	def heat(exchangeParameters : ExchangeParameters) : ExchangeParameters {
 		
-		var furnance = ResourceSupervisor.getFurnanceAgent()
+		var resourceAgent = new ResourceAgent()
+		
+		var furnance = resourceAgent.furnanceAgent
 		
 		var temp = calculateTime(exchangeParameters.productParameters.totalWeight,
 			exchangeParameters.productParameters.compositionOfTheProduct,
-			exchangeParameters.temperature);
+			exchangeParameters.temperature) + furnance.heatingTime;
 			
 		return new ExchangeParameters(exchangeParameters.productParameters, exchangeParameters.alloyStrength,
 			exchangeParameters.alloyExtensibility, Math.round(temp), exchangeParameters.time,
@@ -50,7 +52,6 @@ skill HeatingSkill implements Heating {
 		}
 		
 		return maxTemp;
-		
 	}
 	
 }

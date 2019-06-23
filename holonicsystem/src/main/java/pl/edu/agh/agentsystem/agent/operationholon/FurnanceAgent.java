@@ -7,4 +7,5 @@ public class FurnanceAgent implements OperationAgent {
 	public int getHeatingTime() {
 		return this.heatingTime;
 	}
+	
 }
